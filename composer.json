@@ -22,6 +22,5 @@
             "email": "2light.hidayah@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }
