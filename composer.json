@@ -2,14 +2,14 @@
     "name": "kwri/lumen-piesync-partner",
     "description": "Lumen piesync iframe package",
     "type": "library",
-    "license": "GPL",
+    "license": "GPL-3.0",
     "require": {
         "php": "^5.4|^7.0",
+        "spomky-labs/jose": "^6.1",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "illuminate/contracts": "5.4.*",
         "illuminate/console": "5.4.*",
-        "illuminate/filesystem": "5.4.*",
-        "spomky-labs/jose": "^6.1"
+        "illuminate/filesystem": "5.4.*"
     },
     "autoload": {
         "psr-4": {
