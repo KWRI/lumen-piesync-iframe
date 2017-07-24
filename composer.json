@@ -1,0 +1,23 @@
+{
+    "name": "kwri/lumen-piesync-iframe",
+    "description": "Lumen piesync iframe package",
+    "type": "library",
+    "license": "GPL",
+    "require": {
+        "php": "^5.4|^7.0",
+        "guzzlehttp/guzzle": "~5.3|~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Piesync\\Iframe": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nurcahyo al Hidayah",
+            "email": "2light.hidayah@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
