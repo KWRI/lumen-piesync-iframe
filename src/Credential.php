@@ -9,6 +9,7 @@ class Credential implements JsonSerializable, Arrayable, Serializable
 {
     public $publicPemFile;
     public $privatePemFile;
+    public $piesyncPublicPemFile;
 
     public function jsonSerialize()
     {
@@ -23,6 +24,7 @@ class Credential implements JsonSerializable, Arrayable, Serializable
         $unserialized = json_decode($data, true);
         $this->publicPemFile = $unserialized['public_pem_file'];
         $this->privatePemFile = $unserialized['private_pem_file'];
+        $this->piesyncPublicPemFile = $unserialized['piesync_public_pem_file'];
     }
 
     public function toArray()
@@ -30,6 +32,7 @@ class Credential implements JsonSerializable, Arrayable, Serializable
         return [
             'public_pem_file' => $this->publicPemFile,
             'private_pem_file' => $this->privatePemFile,
+            'piesync_public_pem_file' => $this->piesyncPublicPemFile
         ];
     }
 
