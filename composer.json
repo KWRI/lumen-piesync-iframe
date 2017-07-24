@@ -1,5 +1,5 @@
 {
-    "name": "kwri/lumen-piesync-iframe",
+    "name": "kwri/lumen-piesync-partner",
     "description": "Lumen piesync iframe package",
     "type": "library",
     "license": "GPL",
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Piesync\\Iframe\\": "src/"
+            "Piesync\\Partner\\": "src/"
         }
     },
     "authors": [
