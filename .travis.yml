@@ -1,0 +1,31 @@
+language: php
+php:
+- '5.5'
+- '5.4'
+env:
+  global:
+  - secure: qTnYsc1/8pvsIoB7VevFga+IxNCMRnK8XibvH8jHYhevs7VsXQXsEH0U/OKGJBhdl8RDYJPYR7+OnA4twMXItave634IMAcVzlbkNIewpN7FVCQmQlSv1+rgxcSHd+EE+vjwGSN8zVUQRZWHL9MxlMog2hyqqAHhgjABlMER11SmD5KxGZU/2vQIOr19VNv1c7GDIpJzAVQo13q9zg8lOBihIjW1iUbMjv4fRY6Gv41unfk2GLQ8/vAnUsPHzvJLphEmWChbilmViv+j7oWmViCel9nHbMJukDyKjfQZmMZb+3DtKGV4dH/8Xm9oQMxOJ/5cDpTkvapVgPasKB59VXahoTVJ7ajlgzNynrRFPm/HWgF4ewIZxFNX5GhYw8p+5xclACXlNqltP+CWIkGg1NMWyzc9uBDdgFq9D1+1ARLNpNYt/fTEk7uzpHLBrzVV6iUAoGLc3aAlHcPhpPjESFpmKtcqMNYcvPB/l1114e0jr19AV9bh5DvXt7BmcpCnVQs8oL8cRXh3lYY+KUInQlHr+yq600E5eDTt7hgYaZFxrJTSgBGCkS4vIsMGlDbyu4AII0I63Tky5FFFQNLJBmIJbZoV/vI3FaVaQLGInGM9kGDLo85NtDouX+3Wo//BlJCJnnX81j5ylhChSP2aYrjR3yK6EJfm8D/jmrWq++o= #TRAVIS_TOKEN
+  - secure: U2uYxhMh36R8Lzi8m2nZhACED58pMAQymZL0fCpLFbCa47EaoGg93yBUseezUgwPRR1asg2MTYcBEgS4G25AYpFhx+S8kpIU41y58XbdTAIYVsIaDg3n8n2b2nPeI7c8V4xu13XB5Rkso93u7dlargHRTjM8DQizEnc85FnzeIAwVXMs757XYFZlbb8YIALOPCrNg+qN5orJmRr5TMBSWZULRG3AURdMuaRGVKz/qfWuJSFCmficnSQCUGE6u1M+uaGtvjd4fpMAK77iC6WWHPBANhNu3D5LIBSEYmTqeHQR7/irYrgyRWxgzqyXPbwHihKrGFLFE1MVD1lbnSVVXQmZzkpyBpJTXY5s25rQGstXL1/1PCMHmpk56nlXEZYgxUzOMRCHuLQ2gHxu3baM0zabecRiGXxYtYw2xmqV9Sbjn3pMiwsQmU7yvvcNdawPR2LBP0KjCQzyZ8q0p0B9F1Lt2v0N9b8ywcEV6WJQxMqgBrnZ1lLQtsCpghoZt/cpQTJwdRd/3jzELIAAwuRy1XKoQHLiSbM0g0Ud5ajxdOZxzdeFX4AfrBMpLKgzcw/KT7IAYB02jrAc+ofMZ5duciyMi45JTpSFq/B/Y+AaufyjHkDRk4t+n10roZ5gj/zQGFNK5gUpveOojjtjfc/DgM1xPBXaJuQU0iRllQpV34w= #REBUILD_SATIS_URL
+branches:
+  only:
+  - master
+  - develop
+  - "/\\d+\\.\\d+\\.\\d+/"
+  - "/\\d+\\.\\d+/"
+  before_script:
+  - composer self-update -vvv
+  - composer install --no-interaction  -vvv
+script:
+    - echo $TRAVIS_TOKEN
+    - echo $REBUILD_SATIS
+before_install:
+- echo "zend.enable_gc = Off" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+- echo "memory_limit -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+matrix:
+  allow_failures:
+  - php: 5.6
+  - php: hhvm
+  fast_finish: true
+after_success:
+- curl -o rebuild-satis.sh $REBUILD_SATIS_URL
+- sh rebuild-satis.sh
