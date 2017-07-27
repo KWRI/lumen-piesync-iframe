@@ -91,7 +91,7 @@ class Payload implements Arrayable
 
     public function getExpiration()
     {
-        return $this->expiration;
+        return $this->exp;
     }
 
     public function toArray()
