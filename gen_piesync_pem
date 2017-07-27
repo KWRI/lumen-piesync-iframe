@@ -1,0 +1,23 @@
+#!/bin/bash
+PREFIX=""
+for i in "$@" ; do
+    if [[ $i == "--dev" ]] ; then
+        PREFIX="dev_"
+        break
+    fi
+done
+PRIVATE="./private/piesync/${PREFIX}partner_private.pem"
+PUBLIC="./private/piesync/${PREFIX}partner_public.pem"
+echo "This will create pem file: $PRIVATE and $PUBLIC"
+echo "All file created there will be overrode."
+echo "Do you wish to continue? [y/n]"
+read input_variable
+echo "You entered: $input_variable"
+
+if echo "$input_variable" | grep -iq "^y"; then
+    mkdir -p private/piesync
+    openssl genrsa -out $PRIVATE 2048
+    openssl rsa -in $PRIVATE -outform PEM -pubout -out $PUBLIC
+else
+    echo "Action cancelled"
+fi
