@@ -15,8 +15,7 @@ branches:
   - composer self-update -vvv
   - composer install --no-interaction  -vvv
 script:
-    - echo $TRAVIS_TOKEN
-    - echo $REBUILD_SATIS
+    - echo Test is run
 before_install:
 - echo "zend.enable_gc = Off" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 - echo "memory_limit -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini

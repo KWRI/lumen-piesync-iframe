@@ -2,36 +2,96 @@
 
 namespace Piesync\Partner;
 
-use JsonSerializable;
-use Serializable;
 use Illuminate\Contracts\Support\Arrayable;
 
-class Payload implements JsonSerializable, Arrayable, Serializable
+class Payload implements Arrayable
 {
 
-    public $partner;
-    public $app;
-    public $team_id;
-    public $user_id;
-    public $email;
-    public $api_auth = [];
-    public $exp;
+    private $partner;
+    private $app;
+    private $teamId;
+    private $userId;
+    private $email;
+    private $apiAuth;
+    private $exp;
 
-
-    public function jsonSerialize()
+    public function setPartner($partner)
     {
-        return $this->toArray();
+        $this->partner = $partner;
+        return $this;
     }
 
-    public function serialize() {
-        return json_encode($this->toArray());
+    public function setApp($app)
+    {
+        $this->app = $app;
+        return $this;
     }
 
-    public function unserialize($data) {
-        $data  = json_decode($data, true);
-        foreach ($data as $attributeName => $value) {
-            $this->$attributeName = $value;
-        }
+    public function setTeamId($teamId)
+    {
+        $this->teamId = $teamId;
+        return $this;
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+
+    public function setApiAuth($apiAuth)
+    {
+        $this->apiAuth = $apiAuth;
+        return $this;
+    }
+
+    public function setExpiration($expiration)
+    {
+        $this->exp = $expiration;
+        return $this;
+    }
+
+    public function getPartner()
+    {
+        return $this->partner;
+    }
+
+    public function getApp()
+    {
+        return $this->app;
+    }
+
+    public function getTeamId()
+    {
+        return $this->teamId;
+    }
+
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+
+    public function getApiAuth()
+    {
+        return $this->apiAuth;
+    }
+
+    public function getExpiration()
+    {
+        return $this->expiration;
     }
 
     public function toArray()
@@ -39,14 +99,11 @@ class Payload implements JsonSerializable, Arrayable, Serializable
         return [
             'partner' => $this->partner,
             'app' => $this->app,
-            'team_id' => $this->team_id,
-            'user_id' => $this->user_id,
+            'team_id' => $this->teamId,
+            'user_id' => $this->userId,
             'email' => $this->email,
-            'api_auth' => $this->api_auth,
+            'api_auth' => $this->apiAuth,
             'exp' => $this->exp,
         ];
     }
-
-
-
 }
