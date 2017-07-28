@@ -40,17 +40,14 @@ class TokenGenerator
     public function build()
     {
 
-        $privateJWK = JWKFactory::createFromKeyFile($this->privateKeyFile);
+        $privateJWK = JWKFactory::createFromKeyFile($this->privateKeyFile, null);
         $jws = JWSFactory::createJWSToCompactJSON($this->payload, $privateJWK, ['alg' => 'RS256']);
 
-        $encHeaders = ['alg' => 'RSA1_5', 'enc' => 'A128CBC-HS256'];
-        $jwe = JWEFactory::createJWE($jws, $encHeaders);
-        $ejwk = JWKFactory::createFromKeyFile($this->piesyncPublicKeyFile);
-        $jwe = $jwe->addRecipientInformation($ejwk);
-        $encrypter = Encrypter::createEncrypter(['RSA1_5'], ['A128CBC-HS256']);
-        $encrypter->encrypt($jwe);
+        $publicKey = JWKFactory::createFromKeyFile($this->piesyncPublicKeyFile, null, ['alg' => 'RSA1_5']);
+        $jwe = JWEFactory::createJWEToCompactJSON($jws, $publicKey, ['alg' => 'RSA1_5', 'enc' =>
+'A128CBC-HS256']);
 
-        return $jwe->toCompactJson(0);
+        return $jwe;
 
     }
 }
