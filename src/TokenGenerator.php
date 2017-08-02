@@ -32,7 +32,7 @@ class TokenGenerator
     public function build()
     {
         $privateKey = file_get_contents($this->privateKeyFile);
-        $publicKey = file_get_contents($this->publicKeyFile);
+        $publicKey = file_get_contents($this->piesyncPublicKeyFile);
 
         $jwt = new JOSE_JWT($this->payload->toArray());
         $jws = $jwt->sign($privateKey, 'RS256');
