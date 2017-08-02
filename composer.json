@@ -5,9 +5,9 @@
     "license": "GPL-3.0",
     "require": {
         "php": "^5.4|^7.0",
-        "spomky-labs/jose": "^6.1",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "illuminate/contracts": "5.4.*"
+        "illuminate/contracts": "5.4.*",
+        "gree/jose": "dev-master"
     },
     "autoload": {
         "psr-4": {

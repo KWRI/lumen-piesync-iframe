@@ -1,15 +1,7 @@
 <?php
 namespace Piesync\Partner;
 
-
-use Jose\Factory\JWEFactory;
-use Jose\Factory\JWSFactory;
-use Jose\Factory\JWKFactory;
-use Jose\Algorithm\Signature\RS256;
-use Jose\Signer;
-use Jose\Object\JWS;
-use Jose\Encrypter;
-
+use JOSE_JWT;
 
 class TokenGenerator
 {
@@ -21,7 +13,7 @@ class TokenGenerator
 
     public function setPayload(Payload $payload)
     {
-        $this->payload = $payload->toArray();
+        $this->payload = $payload;
         return $this;
     }
 
@@ -39,15 +31,13 @@ class TokenGenerator
 
     public function build()
     {
+        $privateKey = file_get_contents($this->privateKeyFile);
+        $publicKey = file_get_contents($this->publicKeyFile);
 
-        $privateJWK = JWKFactory::createFromKeyFile($this->privateKeyFile, null);
-        $jws = JWSFactory::createJWSToCompactJSON($this->payload, $privateJWK, ['alg' => 'RS256']);
+        $jwt = new JOSE_JWT($this->payload->toArray());
+        $jws = $jwt->sign($privateKey, 'RS256');
+        $jwe = $jws->encrypt($publicKey, 'RSA1_5', 'A128CBC-HS256');
 
-        $publicKey = JWKFactory::createFromKeyFile($this->piesyncPublicKeyFile, null, ['alg' => 'RSA1_5']);
-        $jwe = JWEFactory::createJWEToCompactJSON($jws, $publicKey, ['alg' => 'RSA1_5', 'enc' =>
-'A128CBC-HS256']);
-
-        return $jwe;
-
+        return $jwe->toString();
     }
 }
