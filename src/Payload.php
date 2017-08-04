@@ -14,6 +14,7 @@ class Payload implements Arrayable
     private $email;
     private $apiAuth;
     private $exp;
+    private $connectionId;
 
     public function setPartner($partner)
     {
@@ -94,9 +95,21 @@ class Payload implements Arrayable
         return $this->exp;
     }
 
+    public function setConnectionId($connectionId)
+    {
+        $this->connectionId = $connectionId;
+        return $this;
+    }
+
+    public function getConnectionId()
+    {
+        return $this->connectionId;
+    }
+
+
     public function toArray()
     {
-        return [
+        $payload = [
             'partner' => $this->partner,
             'app' => $this->app,
             'team_id' => $this->teamId,
@@ -104,6 +117,9 @@ class Payload implements Arrayable
             'email' => $this->email,
             'api_auth' => $this->apiAuth,
             'exp' => $this->exp,
+            'connection_id' => $this->connectionId,
         ];
+
+        return array_filter($payload);
     }
 }
